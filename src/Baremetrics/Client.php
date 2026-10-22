@@ -6,6 +6,7 @@ class Client {
 	const SANDBOX_API_URL = 'https://api-sandbox.baremetrics.com';
 
 	private $apiKey;
+	private \GuzzleHttp\Client $httpClient;
 	private $methods = ['cancel', 'create', 'delete', 'list', 'show', 'update'];
 
 	/** @var \Throwable $lastException */
