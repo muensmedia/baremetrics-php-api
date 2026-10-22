@@ -1,0 +1,45 @@
+name: Composer package
+
+on:
+  push:
+    branches: [master]
+    tags: ["v*"]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build package
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.3"
+          coverage: none
+          tools: composer
+
+      - name: Validate composer.json
+        run: composer validate --no-check-publish
+
+      - name: Install dependencies
+        run: composer update --no-interaction --prefer-dist --no-progress --no-dev
+
+      - name: Syntax check
+        run: find src -name '*.php' -print0 | xargs -0 -n1 php -l
+
+      - name: Build archive
+        run: composer archive --format=zip --dir=dist
+
+      - name: Upload package
+        uses: actions/upload-artifact@v4
+        with:
+          name: composer-package
+          path: dist/*.zip
+          if-no-files-found: error
