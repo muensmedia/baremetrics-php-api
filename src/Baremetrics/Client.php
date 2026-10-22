@@ -8,7 +8,7 @@ class Client {
 	private $apiKey;
 	private $methods = ['cancel', 'create', 'delete', 'list', 'show', 'update'];
 
-	/** @var \GuzzleHttp\Exception\ClientException $lastException */
+	/** @var \Throwable $lastException */
 	private $lastException;
 
 	/**
@@ -128,7 +128,7 @@ class Client {
 
 			$response = $this->httpClient->request($method, $path, $params);
 		}
-		catch (\GuzzleHttp\Exception\ClientException $e) {
+		catch (\Throwable $e) {
 			$this->lastException = $e;
 			return null;
 		}
@@ -152,7 +152,7 @@ class Client {
 
 	/**
 	 * Returns false if no exception occured, otherwise a guzzle ClientException.
-	 * @return bool|\GuzzleHttp\Exception\ClientException
+	 * @return bool|\Throwable
 	 */
 	public function getLastException() {
 		if($this->lastException == null) {

@@ -1,5 +1,5 @@
 {
-    "name": "eliksir/baremetrics-php-api",
+    "name": "muensmedia/baremetrics-php-api",
     "description": "Library to easily work with the Baremetrics API",
     "version": "0.3.2",
     "keywords": ["baremetrics"],
@@ -9,6 +9,7 @@
         "php": ">=5.4.0",
         "guzzlehttp/guzzle": ">=6.0.0"
     },
+    "abandoned": "",
     "autoload": {
         "psr-4": {
             "Baremetrics\\": "src/Baremetrics/"
